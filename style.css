@@ -33,7 +33,6 @@ img{
 /* End of Reset */
 .calculator{
   background: white;
-  width: 30rem;
   border-radius: 10px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   padding: 2rem;
@@ -70,6 +69,11 @@ calculator__input{
   border: none;
  font-size: 2rem;
   font-weight: 300;
+  border-radius: 5px;
+}
+
+.calculator__input--button:hover{
+  background-color: rgb(199, 199, 199);
 }
 
 .calculator__output--top{
