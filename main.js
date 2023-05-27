@@ -34,7 +34,7 @@ function calculate(n1, operation, n2) {
   } else if (operation === '/') {
     result = parseFloat(n1) / parseFloat(n2);
   } else if (operation === '%') {
-    result = (parseFloat(n1) / parseFloat(n2)) * 100;
+    result = (parseFloat(n1) / 100) * parseFloat(n2);
   }
   return result
 }
@@ -68,14 +68,14 @@ function getDigits(e) {
 
 // this will display the result
 function displayResult(){
-  // console.log(operation)
-  // console.log(currentResult)
-  // console.log(bottomField.textContent)
-  showResult(calculate(currentResult, operation, bottomField.textContent))
-  // if(!currentResult && !bottomField.textContent){
-  //   showResult(calculate(currentResult, operation, bottomField.textContent))
-  //   //showResult(calculate("1", "-", "2"))
-  //}
+  console.log(operation)
+  console.log(currentResult)
+  console.log(bottomField.textContent)
+  
+  if(operation !== undefined){
+    showResult(calculate(currentResult, operation, bottomField.textContent))
+    //showResult(calculate("1", "-", "2"))
+  }
 }
 
 
@@ -91,16 +91,8 @@ digits.forEach((digit) => {
 
 output.addEventListener('click', displayResult)
 
-
-
-
-
-
-
-
-
-
-//document.addEventListener('keydown', (e) => console.log(e.key) )
+//keyboard input
+document.addEventListener('keydown', (e) => console.log(e.key) )
 
 // calcInput.addEventListener("click", (e) => {
   
