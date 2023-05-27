@@ -43,7 +43,7 @@ function calculate(n1, operation, n2) {
 
 function getOperator(e){
   //console.log(e.target.dataset.operator)
-  let current = bottomField.textContent;
+  // let current = bottomField.textContent;
 
   let action = e.target.dataset.operator;
 
@@ -92,7 +92,9 @@ digits.forEach((digit) => {
 output.addEventListener('click', displayResult)
 
 //keyboard input
-document.addEventListener('keydown', (e) => console.log(e.key) )
+document.addEventListener('keydown', (e) => {
+  if(e.key >= 0 )
+} )
 
 // calcInput.addEventListener("click", (e) => {
   
