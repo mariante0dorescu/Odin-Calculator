@@ -25,6 +25,9 @@ function showResult(result){
 function calculate(n1, operation, n2) {
   let result = ''
   
+  if(!n1) return "";
+  if(!n2) return n1;
+
   if (operation === '+') {
     result = parseFloat(n1) + parseFloat(n2);
   } else if (operation === '-') {
@@ -41,14 +44,9 @@ function calculate(n1, operation, n2) {
 
 // this will update the operation variable, depending on the user input
 
-function getOperator(e){
-  //console.log(e.target.dataset.operator)
-  // let current = bottomField.textContent;
-
-  let action = e.target.dataset.operator;
-
+function getOperator(action){ 
   if(action === "AC") {bottomField.innerHTML = topField.innerHTML = ""; currentResult = 0}
-  else if(action === "DEL" && bottomField.innerHTML !=="") {bottomField.textContent = bottomField.textContent.slice(0,-1); return}
+  else if(action === "DEL" && bottomField.innerHTML !=="") {bottomField.textContent = bottomField.textContent.slice(0,-1);}
   else {
     if(bottomField.textContent !== "") {
       operation = action;
@@ -60,21 +58,20 @@ function getOperator(e){
 }
 
 // this will update the display with the user input
-function getDigits(e) {
-  //console.log(e.target.dataset.key)
-  bottomField.textContent += e.target.dataset.key;
+function getDigits(digit) {
+  
+  if(bottomField.innerText === "" && digit === ".") return;
+  if(bottomField.innerText === "" && digit === "00") return;
+  if(bottomField.innerText.includes(".") && digit === ".") return;
+  bottomField.textContent += digit;
 }
 
 
 // this will display the result
-function displayResult(){
-  console.log(operation)
-  console.log(currentResult)
-  console.log(bottomField.textContent)
-  
+function displayResult(){  
   if(operation !== undefined){
-    showResult(calculate(currentResult, operation, bottomField.textContent))
-    //showResult(calculate("1", "-", "2"))
+    showResult(calculate(currentResult, operation, bottomField.textContent));
+    currentResult = 0;
   }
 }
 
@@ -82,64 +79,30 @@ function displayResult(){
 // mouse click event listeners
 
 operators.forEach((operator) => {
-  operator.addEventListener('click', getOperator)
+  operator.addEventListener('click', (e) => {
+    let action = e.target.dataset.operator;
+    getOperator(action)
+  })
 })
 
 digits.forEach((digit) => {
-  digit.addEventListener('click', getDigits)
+  digit.addEventListener('click', (e) => {
+    let digit = e.target.dataset.key;
+    getDigits(digit)
+  })
 })
 
 output.addEventListener('click', displayResult)
 
 //keyboard input
 document.addEventListener('keydown', (e) => {
-  if(e.key >= 0 )
-} )
-
-// calcInput.addEventListener("click", (e) => {
-  
-  
-  // if(e.target.matches('button')) {//
-  //   const action = e.target.dataset.operator;
-  //   if(!action){
-      
-  //     //console.log(e.target.dataset.key)
-  //     bottomField.innerText += e.target.dataset.key;
-  //   }
-
-  //   if(action) {
-  //     //console.log(action)
+  console.log(e.key)
+  if(e.key >= 0 && e.key <= 9 || e.key === "." )  getDigits(e.key);
+  if(e.key === "AC" || e.key === "*" || e.key === "/" || e.key === "+" || e.key === "-" || e.key === "%") getOperator(e.key)
+  if(e.key === "Escape") bottomField.innerHTML = topField.innerHTML = ""; 
+  if(e.key === "Delete" || e.key === "Backspace" ) bottomField.textContent = bottomField.textContent.slice(0,-1);
+  if(e.key === "Enter") displayResult();
+})
 
 
-  //     if(action === "DEL" && bottomField.innerHTML !=="&nbsp;") bottomField.innerText = bottomField.innerText.slice(0,-1) 
-  //     if(action === "AC") bottomField.innerHTML = topField.innerHTML = "&nbsp;";
-  //     if( bottomField.innerHTML !=="&nbsp;") firstNumber = bottomField.innerText;
-  //     if(action === "+" || action === "-" || action === "/" || action === "*" || action === "%"){
-  //       operator = action;
-  //       topField.innerText = bottomField.textContent + " " + action;
-  //       bottomField.innerHTML = "&nbsp;"
-  //       return;
-  //       // if(firstNumber < 0) {
-  //       //   console.log('here')
-  //       //   firstNumber = parseFloat(bottomField.innerText);
-  //       //   topField.innerText = firstNumber + " " + action;
-  //       //   bottomField.innerHTML = 0
-  //       // } 
-  //       // if(firstNumber > 0){
-  //       //   console.log('not here')
-  //       //   secondNumber = parseFloat(bottomField.innerText);
-  //       //   console.log(firstNumber, operator, secondNumber)
-  //       //   //bottomField.innerHTML = calculate(firstNumber, operator, secondNumber)
-  //       //   topField.innerHTML = "&nbsp;"
-  //       // }
-  //     }
-  //     if(action === "result"){
-  //       bottomField.innerText =  calculate(topField.textContent, operator, bottomField.textContent);
-  //       topField.innerHTML = "&nbsp;"
-  //     }
-  //   }
-  // }
-
-  //console.log(e.target.dataset.operator || e.target.dataset.key)
-// })
 
