@@ -35,7 +35,8 @@ function calculate(n1, operation, n2) {
   } else if (operation === '*') {
     result = parseFloat(n1) * parseFloat(n2);
   } else if (operation === '/') {
-    result = parseFloat(n1) / parseFloat(n2);
+    if(parseFloat(n2) === 0)  result = 0;
+    else {result = parseFloat(n1) / parseFloat(n2);}
   } else if (operation === '%') {
     result = (parseFloat(n1) / 100) * parseFloat(n2);
   }
@@ -62,6 +63,7 @@ function getDigits(digit) {
   
   if(bottomField.innerText === "" && digit === ".") return;
   if(bottomField.innerText === "" && digit === "00") return;
+  if(bottomField.innerText === "0" && (digit === "00" || digit === "0")) return;
   if(bottomField.innerText.includes(".") && digit === ".") return;
   bottomField.textContent += digit;
 }
